@@ -23,9 +23,16 @@ function App() {
 	// shuffle cards
 	const shuffleCards = () => {
 		const shuffledCards = [...cardImages, ...cardImages].sort(() => Math.random() - 0.5).map((card) => ({ ...card, id: Math.random() }));
+		setChoiceOne(null);
+		setChoiceTwo(null);
 		setCards(shuffledCards);
 		setTurns(0);
 	};
+
+	// start the game automatically
+	useEffect(() => {
+		shuffleCards();
+	}, []);
 
 	// handle a choice
 	const handleChoice = (card) => {
@@ -61,8 +68,6 @@ function App() {
 		}
 	}, [choiceOne, choiceTwo]);
 
-	console.log(cards);
-
 	return (
 		<div className="App">
 			<h1>Magic Match</h1>
@@ -79,6 +84,7 @@ function App() {
 					/>
 				))}
 			</div>
+			<p>Turns: {turns}</p>
 		</div>
 	);
 }
